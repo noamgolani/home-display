@@ -1,11 +1,13 @@
 <script>
 	import 'carbon-components-svelte/css/g90.css';
 	import Time from '../components/Time.svelte';
+	import TodoList from '../components/TodoList.svelte';
 </script>
 
 <div class="container">
 	<h1>Home Display</h1>
 	<Time />
+	<TodoList />
 </div>
 
 <style>
