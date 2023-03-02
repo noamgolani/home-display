@@ -1,6 +1,7 @@
 <script>
 	import Checkbox from 'carbon-icons-svelte/lib/Checkbox.svelte';
 	import CheckboxChecked from 'carbon-icons-svelte/lib/CheckboxChecked.svelte';
+	import { onMount } from 'svelte';
 
 	let todoList = [
 		{
@@ -19,6 +20,24 @@
 			done: true
 		}
 	];
+
+	async function getTodoList() {
+		const response = await fetch('http://localhost:3000/api/todo');
+		const data = await response.json();
+		todoList = data;
+	}
+
+	onMount(async () => {
+		await getTodoList();
+
+		const interval = setInterval(async () => {
+			await getTodoList();
+		}, 10000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	});
 </script>
 
 <ul>
