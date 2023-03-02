@@ -1,28 +1,18 @@
-<script>
+<script lang="ts">
 	import Checkbox from 'carbon-icons-svelte/lib/Checkbox.svelte';
 	import CheckboxChecked from 'carbon-icons-svelte/lib/CheckboxChecked.svelte';
 	import { onMount } from 'svelte';
 
-	let todoList = [
-		{
-			id: 1,
-			text: 'Learn Svelte',
-			done: false
-		},
-		{
-			id: 2,
-			text: 'Do Assignment',
-			done: false
-		},
-		{
-			id: 3,
-			text: 'Do Laundry',
-			done: true
-		}
-	];
+    const api_uri = import.meta.env['VITE_API_URI'];
+
+	let todoList: {
+		text: string;
+		done: boolean;
+		id: string;
+	}[] = [];
 
 	async function getTodoList() {
-		const response = await fetch('http://localhost:3000/api/todo');
+		const response = await fetch(`${api_uri}/todo`);
 		const data = await response.json();
 		todoList = data;
 	}
